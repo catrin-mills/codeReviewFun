@@ -1,6 +1,6 @@
 directions = ['N','E','S','W'] 
 movement = {'N': (0,1), 'E': (1,0), 'S': (0,-1), 'W':(-1,0)}
-commands = {'L': 'turn_left', 'R': 'turn_right', 'M': 'move'}
+commands = {'L': 'turn_left', 'R': 'turn_right', 'M': 'move', 'T': 'travel_like_tardis'}
 
 # General comments:
 ## 1) State what version of python you're using here.
@@ -43,15 +43,26 @@ class Vehicle():
         new_x = self.x + movement[self.dir][0]
         new_y = self.y + movement[self.dir][1]
 
-        # Doesn't do anything, I think
         if new_x != first_vehicle_x or new_y != first_vehicle_y:
-            if new_x in range(GRID_MAX_X+1):   ##be careful 
+            if new_x in range(GRID_MAX_X+1):    
+                self.x = new_x
+            if new_y in range(GRID_MAX_Y+1):
+                self.y = new_y
+                
+    def travel_like_tardis(self):
+        import random
+        new_x = int(random.uniform(0, GRID_MAX_X))
+        #print (new_x)
+        new_y = int(random.uniform(0, GRID_MAX_X))
+        
+        if new_x != first_vehicle_x or new_y != first_vehicle_y:
+            if new_x in range(GRID_MAX_X+1):    
                 self.x = new_x
             if new_y in range(GRID_MAX_Y+1):
                 self.y = new_y
 
 vehicle_one_pos = input().split()
-vehicle_one_commands = input()
+vehicle_one_commands = input("'L': 'turn_left', 'R': 'turn_right', 'M': 'move', 'T': 'travel_like_tardis'")
 
 vehicle_one = Vehicle(int(vehicle_one_pos[0]), int(vehicle_one_pos[1]), vehicle_one_pos[2])
 for command in vehicle_one_commands:
